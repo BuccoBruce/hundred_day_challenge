@@ -6,4 +6,5 @@ totalToPay = 0.0
 
 totalToPay = float((totalBill * (1 + (percentTip / 100))) / peopleSplit)
 
+# Reduce significant digits of totalToPay to 1 in output
 print("Each person should pay: ${:.1f}".format(totalToPay))
