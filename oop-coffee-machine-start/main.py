@@ -14,7 +14,7 @@ available_drinks = menu.get_items()
 
 
 machine_on = True
-while machine_on == True:
+while machine_on:
     user_input = input("What would you like? " + available_drinks + ": ")
     if user_input == "off":
         machine_on = False
