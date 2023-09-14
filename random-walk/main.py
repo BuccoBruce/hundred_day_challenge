@@ -18,10 +18,11 @@ def random_direction():
 
 # Set turtle and screen attributes
 t = Turtle()
-t.speed(100)
+t.speed(0)
 s = Screen()
 s.colormode(255)
 t.shape("turtle")
+t.pensize(10)
 
 # Set initial random values
 random_direction()
