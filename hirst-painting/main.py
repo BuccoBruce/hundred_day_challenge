@@ -32,9 +32,11 @@ x = -400
 y = -300
 color = random_color()
 
+# Initialize Screen attributes
 s = Screen()
 s.colormode(255)
 
+# Initialize turtle color and position
 t = Turtle()
 t.color(color)
 t.fillcolor(color)
@@ -44,6 +46,8 @@ t.setx(x)
 t.sety(y)
 t.speed("fastest")
 
+# Iterate over STEPS, drawing filled circles.  When a row is completed,
+# Reset turtle X to start position, increase Y by distance between circles.
 for _ in range(STEPS):
     y += DISTANCE
     t.sety(y)
