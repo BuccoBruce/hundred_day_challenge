@@ -47,7 +47,7 @@ t.sety(y)
 t.speed("fastest")
 
 # Iterate over STEPS, drawing filled circles.  When a row is completed,
-# Reset turtle X to start position, increase Y by distance between circles.
+# reset turtle X to start position, increase Y by distance between circles.
 for _ in range(STEPS):
     y += DISTANCE
     t.sety(y)
