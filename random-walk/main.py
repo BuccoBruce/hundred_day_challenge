@@ -1,0 +1,41 @@
+from turtle import Turtle, Screen
+import random
+
+
+def random_color():
+    t.color(random.randint(0, 255),
+            random.randint(0, 255),
+            random.randint(0, 255))
+    return
+
+
+def random_direction():
+    headings = [0, 90, 180, 270]
+    heading = random.choice(headings)
+    t.setheading(heading)
+    return
+
+
+# Set turtle and screen attributes
+t = Turtle()
+t.speed(100)
+s = Screen()
+s.colormode(255)
+t.shape("turtle")
+
+# Set initial random values
+random_direction()
+random_color()
+paces = random.choice([20, -20])
+
+# Move forward or backward
+# Buffer old direction for comparison
+# If direction is changing, then also change color of line
+for _ in range(1000):
+    t.forward(paces)
+    old_direction = t.heading()
+    random_direction()
+    new_direction = t.heading()
+    if not new_direction == old_direction:
+        random_color()
+s.exitonclick()
