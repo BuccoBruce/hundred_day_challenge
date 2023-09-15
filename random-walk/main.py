@@ -27,16 +27,17 @@ t.pensize(10)
 # Set initial random values
 random_direction()
 random_color()
-paces = random.choice([20, -20])
 
 # Move forward or backward
 # Buffer old direction for comparison
 # If direction is changing, then also change color of line
-for _ in range(1000):
+for _ in range(500):
+    paces = random.choice([20, -20])
     t.forward(paces)
     old_direction = t.heading()
     random_direction()
     new_direction = t.heading()
+    # Change color if direction of movement has changed
     if not new_direction == old_direction:
         random_color()
 s.exitonclick()
