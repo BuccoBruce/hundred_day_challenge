@@ -35,3 +35,9 @@ class ScoreBoard(Turtle):
     def game_over(self):
         self.goto(0, 0)
         self.write(f"GAME OVER", align=ALIGNMENT, font=(FONT_FACE, FONT_SIZE, FONT_TYPE))
+
+    def you_win(self):
+        self.goto(0, 0)
+        self.clear()
+        self.color("green")
+        self.write(f"YOU WON!!!", align=ALIGNMENT, font=(FONT_FACE, 24, FONT_TYPE))
