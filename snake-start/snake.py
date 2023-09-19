@@ -1,10 +1,12 @@
 from turtle import Turtle
+
 UP = 90
 DOWN = 270
 LEFT = 180
 RIGHT = 0
 
-class Snake():
+
+class Snake:
 
     def __init__(self):
         self.x = 0
@@ -14,7 +16,7 @@ class Snake():
         self.head = self.snake_list[0]
 
     def create_snake(self):
-        for _ in range(3):
+        for position in range(3):
             snake = Turtle(shape="square")
             snake.color("white")
             snake.penup()
@@ -29,7 +31,7 @@ class Snake():
 
     def left(self):
         if self.head.heading() != RIGHT:
-           self.head.setheading(LEFT)
+            self.head.setheading(LEFT)
 
     def down(self):
         if self.head.heading() != UP:
@@ -45,3 +47,22 @@ class Snake():
             new_y = self.snake_list[seg_num - 1].ycor()
             self.snake_list[seg_num].goto(new_x, new_y)
         self.head.forward(20)
+
+    def add_segment(self, position):
+        snake = Turtle(shape="square")
+        snake.color("white")
+        snake.penup()
+        snake.setx(self.snake_list[-1].xcor())
+        snake.sety(self.snake_list[-1].ycor())
+        if self.head.heading == UP:
+            self.y -= 20
+        elif self.head.heading == DOWN:
+            self.y += 20
+        elif self.head.heading == RIGHT:
+            self.x -= 20
+        elif self.head.heading == LEFT:
+            self.x += 20
+        self.snake_list.append(snake)
+
+    def extend(self):
+        self.add_segment(self.snake_list[-1].position())
