@@ -22,6 +22,7 @@ screen.listen()
 
 game_is_on = True
 while game_is_on:
+    print(player_paddle.head.ycor())
     screen.update()
     player_paddle.move()
     ball.move()
@@ -35,7 +36,7 @@ while game_is_on:
         cpu_paddle.move()
 
     # Player Paddle Collision Detection
-    for segment in player_paddle.paddle_list:werv
+    for segment in player_paddle.paddle_list:
         if segment.distance(ball.ball) < 50:
             ball.bounce()
 
