@@ -1,6 +1,5 @@
 import turtle
 
-import pandas
 import pandas as pd
 
 screen = turtle.Screen()
@@ -20,7 +19,7 @@ game_is_on = True
 
 while game_is_on:
 
-    screen_title = (f"Guess the State {score}/50")
+    screen_title = f"Guess the State {score}/50"
     answer_state = screen.textinput(title=screen_title, prompt="What's another state?").title()
     if answer_state in data.values and answer_state not in answer_list:
         x_val = data.loc[data["state"] == answer_state, "x"]
