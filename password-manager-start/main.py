@@ -1,21 +1,30 @@
 from tkinter import *
+from tkinter import messagebox
 
 WHITE = "#ffffff"
 EMAIL_ADDRESS = "dcmcmillan@gmail.com"
 
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
-
+def gen_password():
+    pass
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
 def save_data():
     website = website_entry.get()
     email = email_entry.get()
     password = password_entry.get()
-    with open("data.csv", "a") as file:
-        file.write(f"{website} | {email} | {password}\n")
-    website_entry.delete(0, END)
-    password_entry.delete(0, END)
+
+    if len(website) == 0 or len(password) == 0:
+        messagebox.showerror(title="Oops", message="Please don't leave fields empty!")
+    else:
+        is_ok = messagebox.askokcancel(title=website, message=f"These are the details entered: \nEmail: {email} \nPassword: {password} \nIs it ok to save?")
+
+        if is_ok:
+            with open("data.csv", "a") as file:
+                file.write(f"{website} | {email} | {password}\n")
+            website_entry.delete(0, END)
+            password_entry.delete(0, END)
     
 
 # ---------------------------- UI SETUP ------------------------------- #
