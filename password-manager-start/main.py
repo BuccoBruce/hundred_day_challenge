@@ -1,5 +1,8 @@
 from tkinter import *
 from tkinter import messagebox
+import random
+# import pyperclip
+
 
 WHITE = "#ffffff"
 EMAIL_ADDRESS = "dcmcmillan@gmail.com"
@@ -7,7 +10,28 @@ EMAIL_ADDRESS = "dcmcmillan@gmail.com"
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def gen_password():
-    pass
+    import random
+
+    password_entry.delete(0, END)
+
+    letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+               'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+               'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+
+    password_list = []
+
+    password_list += [random.choice(letters) for _ in range(random.randint(8, 10))]
+    password_list += [random.choice(symbols) for _ in range(random.randint(2, 4))]
+    password_list += [random.choice(numbers) for _ in range(random.randint(2, 4))]
+
+    random.shuffle(password_list)
+    password = "".join(password_list)
+
+    password_entry.insert(0, password)
+    # pyperclip.copy(password)
+
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
 def save_data():
@@ -61,7 +85,7 @@ email_entry.grid(column=1, row=2, columnspan=2, sticky="EW")
 password_entry.grid(column=1, row=3, sticky="W")
 
 # Buttons
-gen_pass_button = Button(text="Generate Password")
+gen_pass_button = Button(text="Generate Password", command=gen_password)
 add_button = Button(text="Add", width=36, command=save_data)
 
 gen_pass_button.grid(column=2, row=3, sticky="EW")
