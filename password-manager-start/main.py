@@ -42,7 +42,8 @@ def save_data():
     if len(website) == 0 or len(password) == 0:
         messagebox.showerror(title="Oops", message="Please don't leave fields empty!")
     else:
-        is_ok = messagebox.askokcancel(title=website, message=f"These are the details entered: \nEmail: {email} \nPassword: {password} \nIs it ok to save?")
+        is_ok = messagebox.askokcancel(title=website, message=f"These are the details entered: \nEmail: {email}"
+                                                              f" \nPassword: {password} \nIs it ok to save?")
 
         if is_ok:
             with open("data.csv", "a") as file:
