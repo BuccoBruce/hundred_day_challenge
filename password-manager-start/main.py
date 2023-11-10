@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 import random
 import json
+
 # import pyperclip
 
 
@@ -32,6 +33,7 @@ def gen_password():
 
     password_entry.insert(0, password)
     # pyperclip.copy(password)
+
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
@@ -64,9 +66,27 @@ def save_data():
         finally:
             website_entry.delete(0, END)
             password_entry.delete(0, END)
-    
+
+
+def find_password():
+    website = website_entry.get()
+    with open("data.json", "r") as file:
+        data = json.load(file)
+        # print(data[website]["password"])
+        try:
+            email = data[website]["email"]
+            password = data[website]["password"]
+            messagebox_message = f"Email: {email}\nPassword: {password}"
+            messagebox.showinfo(title=website, message=messagebox_message)
+        except KeyError:
+            if website == "":
+                messagebox.showwarning(title="Warning", message="Please enter a website before searching.")
+            else:
+                messagebox.showerror(title="Error!", message=f"{website} not in data!")
+
 
 # ---------------------------- UI SETUP ------------------------------- #
+
 window = Tk()
 window.title("Password Manager")
 window.config(padx=50, pady=50)
@@ -102,8 +122,10 @@ password_entry.grid(column=1, row=3, sticky="W")
 # Buttons
 gen_pass_button = Button(text="Generate Password", command=gen_password)
 add_button = Button(text="Add", width=36, command=save_data)
+search_button = Button(text="Search", command=find_password)
 
 gen_pass_button.grid(column=2, row=3, sticky="EW")
 add_button.grid(column=1, row=4, columnspan=2, sticky="EW")
+search_button.grid(column=2, row=1, sticky="EW")
 
 window.mainloop()
