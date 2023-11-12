@@ -3,9 +3,6 @@ from tkinter import messagebox
 import random
 import json
 
-# import pyperclip
-
-
 WHITE = "#ffffff"
 EMAIL_ADDRESS = "dcmcmillan@gmail.com"
 
@@ -108,14 +105,14 @@ email_label.grid(column=0, row=2)
 password_label.grid(column=0, row=3)
 
 # Entry Fields
-website_entry = Entry(width=35)
+website_entry = Entry(width=21)
 email_entry = Entry(width=35)
 password_entry = Entry(width=21)
 
 website_entry.focus()
 email_entry.insert(0, EMAIL_ADDRESS)
 
-website_entry.grid(column=1, row=1, columnspan=2, sticky="EW")
+website_entry.grid(column=1, row=1, sticky="EW")
 email_entry.grid(column=1, row=2, columnspan=2, sticky="EW")
 password_entry.grid(column=1, row=3, sticky="W")
 
