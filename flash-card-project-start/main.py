@@ -1,17 +1,30 @@
 from tkinter import *
 import pandas as pd
 import random
+import os
 
 BACKGROUND_COLOR = "#B1DDC6"
 
 data = pd.read_csv("data/french_words.csv")
 to_learn = data.to_dict(orient="records")
-current_card = random.choice(to_learn)
+def known_card():
+    global to_learn, current_card, new_data
+
+    for d in to_learn:
+        if d["French"] == current_card["French"]:
+            to_learn.remove(d)
+            print(f"Removing {d["French"]} from csv.")
+    new_data = pd.DataFrame(to_learn)
+    new_file = new_data.to_csv("data/words_to_learn.csv", index=False)
+    next_card()
 
 def next_card():
-    global current_card, delay
+    global current_card, delay, to_learn, new_data
 
     window.after_cancel(delay)
+    if os.path.isfile("data/words_to_learn.csv"):
+        data = pd.read_csv("data/words_to_learn.csv")
+        to_learn = data.to_dict(orient="records")
     next_card = random.choice(to_learn)
     current_card = next_card
     current_card["French"]
@@ -48,7 +61,7 @@ unknown_button = Button(image=cross_image, highlightthickness=0, border=0, comma
 unknown_button.grid(column=0, row=1)
 
 check_image = PhotoImage(file="images/right.png")
-known_button = Button(image=check_image, highlightthickness=0, border=0, command=next_card)
+known_button = Button(image=check_image, highlightthickness=0, border=0, command=known_card)
 known_button.grid(column=1, row=1)
 
 next_card()
