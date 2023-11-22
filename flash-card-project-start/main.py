@@ -5,8 +5,11 @@ import os
 
 BACKGROUND_COLOR = "#B1DDC6"
 
+# Read french_words.csv into DataFrame and convert to list of dictionaries (to_learn)
 data = pd.read_csv("data/french_words.csv")
 to_learn = data.to_dict(orient="records")
+
+# If user knows the card, delete from dataset and flip to next card
 def known_card():
     global to_learn, current_card, new_data
 
@@ -18,6 +21,7 @@ def known_card():
     new_file = new_data.to_csv("data/words_to_learn.csv", index=False)
     next_card()
 
+# Pick a new card from the existing dataset at random and flip it to English after 3 seconds.
 def next_card():
     global current_card, delay, to_learn, new_data
 
@@ -25,11 +29,13 @@ def next_card():
     if os.path.isfile("data/words_to_learn.csv"):
         data = pd.read_csv("data/words_to_learn.csv")
         to_learn = data.to_dict(orient="records")
-    next_card = random.choice(to_learn)
-    current_card = next_card
-    current_card["French"]
+    if len(to_learn) < 2:
+        data = pd.read_csv("data/french_words.csv")
+        to_learn = data.to_dict(orient="records")
+        print("Repopulated Dataset")
+    current_card = random.choice(to_learn)
     canvas.itemconfig(card_title, text="French", fill="black")
-    canvas.itemconfig(card_word, text=next_card["French"], fill="black")
+    canvas.itemconfig(card_word, text=current_card["French"], fill="black")
     canvas.itemconfig(canvas_image, image=card_front_img)
     delay = window.after(3000, func=flip_card)
 
@@ -38,16 +44,16 @@ def flip_card():
     canvas.itemconfig(card_word, text=current_card["English"], fill="white")
     canvas.itemconfig(canvas_image, image=card_back_img)
 
+# Window setup
 window = Tk()
 window.title("Flashy")
 window.config(padx=50, pady=50, bg=BACKGROUND_COLOR, highlightthickness=0)
 
 delay = window.after(3000, func=flip_card)
 
+# Flash Card setup
 card_front_img = PhotoImage(file="images/card_front.png")
 card_back_img = PhotoImage(file="images/card_back.png")
-
-# Flash Card
 canvas = Canvas(width=800, height=526)
 canvas_image = canvas.create_image(400, 263, image=card_front_img)
 card_title = canvas.create_text(400, 150, text="", font=("Arial", 40, "italic"))
@@ -59,7 +65,6 @@ canvas.grid(column=0, row=0, columnspan=2)
 cross_image = PhotoImage(file="images/wrong.png")
 unknown_button = Button(image=cross_image, highlightthickness=0, border=0, command=next_card)
 unknown_button.grid(column=0, row=1)
-
 check_image = PhotoImage(file="images/right.png")
 known_button = Button(image=check_image, highlightthickness=0, border=0, command=known_card)
 known_button.grid(column=1, row=1)
